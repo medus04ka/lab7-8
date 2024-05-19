@@ -23,7 +23,6 @@ public class RegisterForm extends AuthenthicateForm {
      * Запрашивает пароль пользователя и проверяет его.
      *
      * @return Пароль пользователя.
-     * @throws IncorrectInputInScriptException Если запущен скрипт и возникает ошибка.
      */
     @Override
     protected String askPassword() throws Exception {

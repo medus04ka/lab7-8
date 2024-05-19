@@ -15,7 +15,6 @@ public class Update extends Command {
     /**
      * Instantiates a new Update.
      *
-     * @param humanBeingNativeBasedRepository the human being repository
      */
     public Update(HumanBeingService service) {
         super("update <ID> {element}", "обновить значение элемента коллекции по ID");

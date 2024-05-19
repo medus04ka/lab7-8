@@ -35,13 +35,13 @@ public class AuthenthicateForm extends Form<User> {
                 name = Interrogator.getUserScanner().nextLine().trim();
                 if (fileMode) console.println(name);
 
-                if (name.equals("") || name.length() >= 40) throw new Exception();
+                if (name.equals("") || name.length() >= 52) throw new Exception();
                 break;
             } catch (NoSuchElementException exception) {
                 console.printError("Имя пользователя не распознано!");
                 if (fileMode) throw new Exception();
             } catch (Exception exception) {
-                console.printError("Размер имени должен быть от 1 до 40 символов!");
+                console.printError("Размер имени должен быть от 1 до 52 символов!");
                 if (fileMode) throw new Exception();
             }
 //            catch (IllegalStateException exception) {

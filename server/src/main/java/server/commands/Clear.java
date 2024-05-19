@@ -16,7 +16,6 @@ public class Clear extends Command {
     /**
      * Instantiates a new Clear.
      *
-     * @param humanBeingNativeBasedRepository the human being repository
      */
     public Clear(HumanBeingService service) {
         super("clear", "очистить коллекцию");

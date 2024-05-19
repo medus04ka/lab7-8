@@ -14,7 +14,6 @@ public class Show extends Command {
     /**
      * Instantiates a new Show.
      *
-     * @param humanBeingNativeBasedRepository the human being repository
      */
     public Show(HumanBeingService service) {
         super("show", "вывести все элементы коллекции");

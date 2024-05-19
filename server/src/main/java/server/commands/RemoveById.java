@@ -15,7 +15,6 @@ public class RemoveById extends Command {
     /**
      * Instantiates a new Remove by id.
      *
-     * @param humanBeingNativeBasedRepository the human being repository
      */
     public RemoveById(HumanBeingService service) {
         super("remove_by_id <ID>", "удалить элемент из коллекции по ID");
