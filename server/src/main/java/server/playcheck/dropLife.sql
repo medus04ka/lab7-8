@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS humanbeing;
+DROP TABLE IF EXISTS users;
+DROP TYPE IF EXISTS mood;
+DROP TYPE IF EXISTS weapon_type;
