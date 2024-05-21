@@ -11,18 +11,11 @@ import java.io.IOException;
 
 /**
  * Команда 'show'. Выводит все элементы коллекции.
- *
  */
 public class Show extends Command {
     private final Cons console;
     private final UDP client;
 
-    /**
-     * Instantiates a new Show.
-     *
-     * @param console the console
-     * @param client  the client
-     */
     public Show(Cons console, UDP client) {
         super("show");
         this.console = console;
@@ -31,6 +24,7 @@ public class Show extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override
@@ -55,7 +49,7 @@ public class Show extends Command {
         } catch (WrongAmountOfElements exception) {
             console.printError("Неправильное количество аргументов!");
             console.println("Использование: '" + getName() + "'");
-        } catch(IOException e) {
+        } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         } catch (API e) {
             console.printError(e.getMessage());

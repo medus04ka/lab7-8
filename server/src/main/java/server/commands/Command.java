@@ -6,19 +6,12 @@ import java.util.Objects;
 
 /**
  * Абстрактная команда с именем и описанием
- *
  */
 public abstract class Command implements Describable, Executable {
     private final String name;
     private final String description;
 
 
-    /**
-     * Instantiates a new Command.
-     *
-     * @param name        the name
-     * @param description the description
-     */
     public Command(String name, String description) {
         this.name = name;
         this.description = description;

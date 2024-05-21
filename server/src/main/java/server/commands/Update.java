@@ -7,15 +7,10 @@ import server.service.HumanBeingService;
 
 /**
  * Команда 'update'. Обновляет элемент коллекции.
- *
  */
 public class Update extends Command {
     private final HumanBeingService service;
 
-    /**
-     * Instantiates a new Update.
-     *
-     */
     public Update(HumanBeingService service) {
         super("update <ID> {element}", "обновить значение элемента коллекции по ID");
         this.service = service;
@@ -23,6 +18,7 @@ public class Update extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override
@@ -33,7 +29,7 @@ public class Update extends Command {
                 return new UpdateRes("Продукта с таким ID в коллекции нет!");
             }
             if (!req.updatedPerson.validate()) {
-                return new UpdateRes( "Поля продукта не валидны! Продукт не обновлен!");
+                return new UpdateRes("Поля продукта не валидны! Продукт не обновлен!");
             }
             service.updateHumanBeing(req.getUser(), req.updatedPerson);
             return new UpdateRes(null);

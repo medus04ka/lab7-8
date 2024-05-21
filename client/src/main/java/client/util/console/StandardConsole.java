@@ -2,7 +2,6 @@ package client.util.console;
 
 /**
  * Для ввода команд и вывода результата
- *
  */
 public class StandardConsole implements Cons {
     private static final String PS1 = "$ ";
@@ -10,6 +9,7 @@ public class StandardConsole implements Cons {
 
     /**
      * Выводит obj.toString() в консоль
+     *
      * @param obj Объект для печати
      */
     public void print(Object obj) {
@@ -18,6 +18,7 @@ public class StandardConsole implements Cons {
 
     /**
      * Выводит obj.toString() + \n в консоль
+     *
      * @param obj Объект для печати
      */
     public void println(Object obj) {
@@ -26,6 +27,7 @@ public class StandardConsole implements Cons {
 
     /**
      * Выводит ошибка: obj.toString() в консоль
+     *
      * @param obj Ошибка для печати
      */
     public void printError(Object obj) {
@@ -34,7 +36,8 @@ public class StandardConsole implements Cons {
 
     /**
      * Выводит таблицу из 2 колонок
-     * @param elementLeft Левый элемент колонки.
+     *
+     * @param elementLeft  Левый элемент колонки.
      * @param elementRight Правый элемент колонки.
      */
     public void printTable(Object elementLeft, Object elementRight) {

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * The type Human being.
+ * Класс Хуман сущность.
  */
 public class HumanBeing extends Element {
     @Serial
@@ -16,7 +16,7 @@ public class HumanBeing extends Element {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Boolean realHero; //Поле не может быть null
     private boolean hasToothpick;
     private Long impactSpeed; //Максимальное значение поля: 659
@@ -24,19 +24,6 @@ public class HumanBeing extends Element {
     private Mood mood; //Поле не может быть null
     private int ownerId;
 
-    /**
-     * Instantiates a new Human being.
-     *
-     * @param id           the id
-     * @param name         the name
-     * @param coordinates  the coordinates
-     * @param creationDate the creation date
-     * @param realHero     the real hero
-     * @param hasToothpick the has toothpick
-     * @param impactSpeed  the impact speed
-     * @param weaponType   the weapon type
-     * @param mood         the mood
-     */
     public HumanBeing(
             int id,
             String name,
@@ -47,8 +34,7 @@ public class HumanBeing extends Element {
             Long impactSpeed,
             WeaponType weaponType,
             Mood mood,
-            int ownerId)
-    {
+            int ownerId) {
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
@@ -107,83 +93,37 @@ public class HumanBeing extends Element {
         return id;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Gets coordinates.
-     *
-     * @return the coordinates
-     */
     public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    /**
-     * Gets creation date.
-     *
-     * @return the creation date
-     */
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    /**
-     * Is real hero boolean.
-     *
-     * @return the boolean
-     */
     public Boolean isRealHero() {
         return realHero;
     }
 
-    /**
-     * Has toothpick boolean.
-     *
-     * @return the boolean
-     */
     public boolean hasToothpick() {
         return hasToothpick;
     }
 
-    /**
-     * Gets impact speed.
-     *
-     * @return the impact speed
-     */
     public Long getImpactSpeed() {
         return impactSpeed;
     }
 
-    /**
-     * Gets weapon type.
-     *
-     * @return the weapon type
-     */
     public WeaponType getWeaponType() {
         return weaponType;
     }
 
-    /**
-     * Gets mood.
-     *
-     * @return the mood
-     */
     public Mood getMood() {
         return mood;
     }
-
-    /**
-     * Gets car.
-     *
-     * @return the car
-     */
 
 
     @Override

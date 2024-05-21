@@ -4,16 +4,10 @@ import client.util.console.Cons;
 
 /**
  * Команда 'execute_script'. Выполнить скрипт из файла.
- *
  */
 public class ExecuteScript extends Command {
     private final Cons console;
 
-    /**
-     * Instantiates a new Execute script.
-     *
-     * @param console the console
-     */
     public ExecuteScript(Cons console) {
         super("execute_script <file_name>");
         this.console = console;
@@ -21,6 +15,7 @@ public class ExecuteScript extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override

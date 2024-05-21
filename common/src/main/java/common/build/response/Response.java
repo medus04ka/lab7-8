@@ -3,38 +3,19 @@ package common.build.response;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * The type Response.
- */
 public abstract class Response implements Serializable {
     private final String name;
     private final String error;
 
-    /**
-     * Instantiates a new Response.
-     *
-     * @param name  the name
-     * @param error the error
-     */
     public Response(String name, String error) {
         this.name = name;
         this.error = error;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Gets error.
-     *
-     * @return the error
-     */
     public String getError() {
         return error;
     }

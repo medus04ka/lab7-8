@@ -13,18 +13,11 @@ import java.io.IOException;
 
 /**
  * Команда 'update'. Обновляет элемент коллекции.
- *
  */
 public class Update extends Command {
     private final Cons console;
     private final UDP client;
 
-    /**
-     * Instantiates a new Update.
-     *
-     * @param console the console
-     * @param client  the client
-     */
     public Update(Cons console, UDP client) {
         super("update ID {element}");
         this.console = console;
@@ -33,6 +26,7 @@ public class Update extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override
@@ -60,11 +54,12 @@ public class Update extends Command {
             console.printError("Поля продукта не валидны! Продукт не создан!");
         } catch (NumberFormatException exception) {
             console.printError("ID должен быть представлен числом!");
-        } catch(IOException e) {
+        } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         } catch (API e) {
             console.printError(e.getMessage());
-        } catch (IncorrectInputInScript ignored) {}
+        } catch (IncorrectInputInScript ignored) {
+        }
         return false;
     }
 }

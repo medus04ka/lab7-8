@@ -4,35 +4,18 @@ import java.util.Objects;
 
 /**
  * Абстрактная команда с именем и описанием
- *
  */
 public abstract class Command {
     private final String name;
 
-    /**
-     * Instantiates a new Command.
-     *
-     * @param name the name
-     */
     public Command(String name) {
         this.name = name;
     }
 
-    /**
-     * Resolve boolean.
-     *
-     * @param name the name
-     * @return the boolean
-     */
     public boolean resolve(String name) {
         return name.equals(this.name);
     }
 
-    /**
-     * Gets name.
-     *
-     * @return Название и использование команды.
-     */
     public String getName() {
         return name;
     }

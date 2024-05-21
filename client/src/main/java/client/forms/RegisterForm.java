@@ -30,7 +30,7 @@ public class RegisterForm extends AuthenthicateForm {
         var fileMode = Interrogator.fileMode();
         while (true) {
             try {
-                console.println("Введите пароль пользователя:");
+                console.println("Введите пароль юзерка:");
                 console.ps2();
 
                 password = readPassword();
@@ -38,7 +38,7 @@ public class RegisterForm extends AuthenthicateForm {
 
                 if (password.equals("")) throw new Exception();
 
-                console.println("Повторите пароль пользователя:");
+                console.println("Повторите пароль ЮзЕркА:");
                 console.ps2();
 
                 var passwordRepeat = readPassword();

@@ -8,16 +8,10 @@ import java.util.NoSuchElementException;
 
 /**
  * Форма типа Мудла.
- *
  */
 public class MoodForm extends Form<Mood> {
     private final client.util.console.Cons console;
 
-    /**
-     * Instantiates a new Mood form.
-     *
-     * @param console the console
-     */
     public MoodForm(client.util.console.Cons console) {
         this.console = console;
     }

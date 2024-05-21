@@ -13,10 +13,6 @@ public class Info extends Command {
 
     private final HumanBeingService service;
 
-    /**
-     * Instantiates a new Info.
-     *
-     */
     public Info(HumanBeingService service) {
         super("info", "вывести информацию о коллекции");
         this.service = service;
@@ -40,8 +36,6 @@ public class Info extends Command {
         var message = "Сведения о коллекции:\n" +
                 " Тип: " + service.getTypeOfCollection() + "\n" +
                 " Количество элементов: " + service.get().size() + "\n";
-               // " Дата последнего сохранения: " + lastSaveTimeString + "\n" +
-               // " Дата последней инициализации: " + lastInitTimeString;
         return new InfoRes(message, null);
     }
 }

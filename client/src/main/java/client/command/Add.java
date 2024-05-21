@@ -17,12 +17,6 @@ public class Add extends Command {
     private final Cons console;
     private final UDP client;
 
-    /**
-     * Instantiates a new Add.
-     *
-     * @param console the console
-     * @param client  the client
-     */
     public Add(Cons console, UDP client) {
         super("add {element}");
         this.console = console;
@@ -49,11 +43,12 @@ public class Add extends Command {
             console.println("Использование: '" + getName() + "'");
         } catch (InvalidForm exception) {
             console.printError("Поля друга не валидны! Продукт не создан!");
-        } catch(IOException e) {
+        } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         } catch (API e) {
             console.printError(e.getMessage());
-        } catch (IncorrectInputInScript ignored) {}
+        } catch (IncorrectInputInScript ignored) {
+        }
         return false;
     }
 }

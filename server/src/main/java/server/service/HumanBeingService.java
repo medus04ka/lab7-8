@@ -41,7 +41,7 @@ public class HumanBeingService {
     public int add(User user, HumanBeing element) {
         int id = -1;
         try {
-           id = humanBeingJdbcBasedRepository.add(user, element);
+            id = humanBeingJdbcBasedRepository.add(user, element);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return id;
@@ -127,7 +127,7 @@ public class HumanBeingService {
     }
 
     public long getSumOfImpactSpeed() {
-       return humanBeingNativeBasedRepository.get().stream()
+        return humanBeingNativeBasedRepository.get().stream()
                 .map(HumanBeing::getImpactSpeed)
                 .mapToLong(Long::longValue)
                 .sum();

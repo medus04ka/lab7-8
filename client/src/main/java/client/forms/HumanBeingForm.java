@@ -9,16 +9,11 @@ import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 /**
- * The type Human being form.
+ * The type ИНВАЛИД form.
  */
 public class HumanBeingForm extends Form<HumanBeing> {
     private final Cons console;
 
-    /**
-     * Instantiates a new Human being form.
-     *
-     * @param console the console
-     */
     public HumanBeingForm(Cons console) {
         this.console = console;
     }
@@ -77,14 +72,14 @@ public class HumanBeingForm extends Form<HumanBeing> {
         var fileMode = Interrogator.fileMode();
         while (true) {
             try {
-                console.println("Является ли убийца героем? (yes/no)");
+                console.println("Является ли убийца героем? (y/n)");
                 console.ps2();
 
                 String input = Interrogator.getUserScanner().nextLine().trim().toLowerCase();
                 if (fileMode) console.println(input);
 
-                if (input.equals("да") || input.equals("yes")) return true;
-                else if (input.equals("нет") || input.equals("no")) return false;
+                if (input.equals("да") || input.equals("yes") || input.equals("y")) return true;
+                else if (input.equals("нет") || input.equals("no") || input.equals("n")) return false;
                 else throw new IncorrectInputInScript();
             } catch (NoSuchElementException exception) {
                 console.printError("Ответ не распознан!");
@@ -103,14 +98,14 @@ public class HumanBeingForm extends Form<HumanBeing> {
         var fileMode = Interrogator.fileMode();
         while (true) {
             try {
-                console.println("Есть ли у убийцы зубочистка? (yes/no)");
+                console.println("Есть ли у убийцы крутая шляпа? (y/n)");
                 console.ps2();
 
                 String input = Interrogator.getUserScanner().nextLine().trim().toLowerCase();
                 if (fileMode) console.println(input);
 
-                if (input.equals("да") || input.equals("yes")) return true;
-                else if (input.equals("нет") || input.equals("no")) return false;
+                if (input.equals("да") || input.equals("y") || input.equals("yes")) return true;
+                else if (input.equals("нет") || input.equals("n") || input.equals("no")) return false;
                 else throw new IncorrectInputInScript();
             } catch (NoSuchElementException exception) {
                 console.printError("Ответ не распознан!");

@@ -8,15 +8,10 @@ import server.service.HumanBeingService;
 
 /**
  * Команда 'clear'. Очищает коллекцию.
- *
  */
 public class Clear extends Command {
     private final HumanBeingService service;
 
-    /**
-     * Instantiates a new Clear.
-     *
-     */
     public Clear(HumanBeingService service) {
         super("clear", "очистить коллекцию");
         this.service = service;
@@ -24,6 +19,7 @@ public class Clear extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override

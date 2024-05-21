@@ -1,10 +1,13 @@
 package client.command;
 
+import client.forms.AuthenthicateForm;
 import client.forms.RegisterForm;
 import client.handlers.SessionHandler;
 import client.netw.UDP;
 import client.util.console.Cons;
+import common.build.request.AuthReq;
 import common.build.request.RegisterReq;
+import common.build.response.AuthRes;
 import common.build.response.RegisterRes;
 import common.exceptions.API;
 import common.exceptions.InvalidForm;
@@ -12,45 +15,39 @@ import common.exceptions.WrongAmountOfElements;
 
 import java.io.IOException;
 
-public class Register extends Command {
-
+public class Auth extends Command {
     private final Cons console;
     private final UDP client;
 
-    public Register(Cons console, UDP client) {
-        super("register");
+    public Auth(Cons console, UDP client) {
+        super("auth");
         this.console = console;
         this.client = client;
     }
 
-    /**
-     * Выполняет команду
-     *
-     * @return Успешность выполнения команды.
-     */
     @Override
     public boolean apply(String[] arguments) {
         try {
             if (!arguments[1].isEmpty()) throw new Exception();
-            console.println("Создание ЮЗерка:");
+            console.println("Залогинивание пользователя:");
 
-            var user = (new RegisterForm(console)).build();
+            var user = (new AuthenthicateForm(console)).build();
 
-            var response = (RegisterRes) client.sendAndReceiveCommand(new RegisterReq(user));
+            var response = (AuthRes) client.sendAndReceiveCommand(new AuthReq(user));
             if (response.getError() != null && !response.getError().isEmpty()) {
                 throw new API(response.getError());
             }
 
             SessionHandler.setCurrentUser(response.user);
-            console.println("ЮзЕрОк " + response.user.getName() +
-                    " с id=" + response.user.getId() + " успешно создан!");
+            console.println("Вы вошла " + response.user.getName() +
+                    " с id=" + response.user.getId() + " !");
             return true;
 
         } catch (WrongAmountOfElements exception) {
             console.printError("Неправильное количество аргументов!");
             console.println("Использование: '" + getName() + "'");
         } catch (InvalidForm exception) {
-            console.printError("Введенные данные не валидны! Пользователь на зарегистрирован");
+            console.printError("Введенные данные не валидны! Пользователь не вхожден");
         } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         } catch (API e) {
@@ -60,5 +57,6 @@ public class Register extends Command {
         }
         return false;
     }
+
 
 }

@@ -18,7 +18,7 @@ import java.nio.channels.DatagramChannel;
 import java.util.Arrays;
 
 /**
- * The type Udp.
+ * ЮДИПИШКА.
  */
 public class UDP {
     private final int PACKET_SIZE = 1024;
@@ -29,27 +29,13 @@ public class UDP {
 
     private final Logger logger = LoggerFactory.getLogger(App.class);
 
-    /**
-     * Instantiates a new Udp.
-     *
-     * @param address the address
-     * @param port    the port
-     * @throws IOException the io exception
-     */
     public UDP(InetAddress address, int port) throws IOException {
         this.addr = new InetSocketAddress(address, port);
         this.client = DatagramChannel.open().bind(null).connect(addr);
         this.client.configureBlocking(false);
-        logger.info("DatagramChannel подключен к " + addr);
+        logger.info("ДАТАГРАМММММКАНАЛЬЧИК подключен к " + addr);
     }
 
-    /**
-     * Send and receive command response.
-     *
-     * @param request the request
-     * @return the response
-     * @throws IOException the io exception
-     */
     public Response sendAndReceiveCommand(Request request) throws IOException {
         var data = SerializationUtils.serialize(request);
         var responseBytes = sendAndReceiveData(data);
@@ -60,17 +46,17 @@ public class UDP {
     }
 
     private void sendData(byte[] data) throws IOException {
-        byte[][] ret = new byte[(int)Math.ceil(data.length / (double)DATA_SIZE)][DATA_SIZE];
+        byte[][] ret = new byte[(int) Math.ceil(data.length / (double) DATA_SIZE)][DATA_SIZE];
 
         int start = 0;
-        for(int i = 0; i < ret.length; i++) {
+        for (int i = 0; i < ret.length; i++) {
             ret[i] = Arrays.copyOfRange(data, start, start + DATA_SIZE);
             start += DATA_SIZE;
         }
 
-        logger.info("Отправляется " + ret.length + " плюшек...");
+        logger.info("Отправляется " + ret.length + " плюшка...");
 
-        for(int i = 0; i < ret.length; i++) {
+        for (int i = 0; i < ret.length; i++) {
             var chunk = ret[i];
             if (i == ret.length - 1) {
                 var lastChunk = Bytes.concat(chunk, new byte[]{1});
@@ -90,7 +76,7 @@ public class UDP {
         var received = false;
         var result = new byte[0];
 
-        while(!received) {
+        while (!received) {
             var data = receiveData(PACKET_SIZE);
             logger.info("Получено \"" + new String(data) + "\"");
             logger.info("Последний байт: " + data[data.length - 1]);
@@ -108,7 +94,7 @@ public class UDP {
     private byte[] receiveData(int bufferSize) throws IOException {
         var buffer = ByteBuffer.allocate(bufferSize);
         SocketAddress address = null;
-        while(address == null) {
+        while (address == null) {
             address = client.receive(buffer);
         }
         return buffer.array();

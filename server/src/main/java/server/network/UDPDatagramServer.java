@@ -13,9 +13,6 @@ import java.net.*;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-/**
- * The type Udp datagram server.
- */
 public class UDPDatagramServer extends UDPServer {
     private final int PACKET_SIZE = 1024;
     private final int DATA_SIZE = PACKET_SIZE - 1;
@@ -24,14 +21,6 @@ public class UDPDatagramServer extends UDPServer {
 
     private final Logger logger = App.logger;
 
-    /**
-     * Instantiates a new Udp datagram server.
-     *
-     * @param address        the address
-     * @param port           the port
-     * @param commandHandler the command handler
-     * @throws SocketException the socket exception
-     */
     public UDPDatagramServer(InetAddress address, int port, CommandHandler commandHandler) throws SocketException {
         super(new InetSocketAddress(address, port), commandHandler);
         this.datagramSocket = new DatagramSocket(getAddr());
@@ -44,7 +33,7 @@ public class UDPDatagramServer extends UDPServer {
         var result = new byte[0];
         SocketAddress addr = null;
 
-        while(!received) {
+        while (!received) {
             var data = new byte[PACKET_SIZE];
 
             var dp = new DatagramPacket(data, PACKET_SIZE);
@@ -65,17 +54,17 @@ public class UDPDatagramServer extends UDPServer {
 
     @Override
     public void sendData(byte[] data, SocketAddress addr) throws IOException {
-        byte[][] ret = new byte[(int)Math.ceil(data.length / (double)DATA_SIZE)][DATA_SIZE];
+        byte[][] ret = new byte[(int) Math.ceil(data.length / (double) DATA_SIZE)][DATA_SIZE];
 
         int start = 0;
-        for(int i = 0; i < ret.length; i++) {
+        for (int i = 0; i < ret.length; i++) {
             ret[i] = Arrays.copyOfRange(data, start, start + DATA_SIZE);
             start += DATA_SIZE;
         }
 
-        logger.info("Отправляется " + ret.length + " Плюшек...");
+        logger.info("Отправляется " + ret.length + " плюшек...");
 
-        for(int i = 0; i < ret.length; i++) {
+        for (int i = 0; i < ret.length; i++) {
             var chunk = ret[i];
             if (i == ret.length - 1) {
                 var lastChunk = Bytes.concat(chunk, new byte[]{1});

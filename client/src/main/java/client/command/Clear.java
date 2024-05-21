@@ -11,18 +11,11 @@ import java.io.IOException;
 
 /**
  * Команда 'clear'. Очищает коллекцию.
- *
  */
 public class Clear extends Command {
     private final Cons console;
     private final UDP client;
 
-    /**
-     * Instantiates a new Clear.
-     *
-     * @param console the console
-     * @param client  the client
-     */
     public Clear(Cons console, UDP client) {
         super("clear");
         this.console = console;
@@ -31,6 +24,7 @@ public class Clear extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override
@@ -48,7 +42,7 @@ public class Clear extends Command {
         } catch (WrongAmountOfElements exception) {
             console.printError("Неправильное количество аргументов!");
             console.println("Использование: '" + getName() + "'");
-        } catch(IOException e) {
+        } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         } catch (API e) {
             console.printError(e.getMessage());

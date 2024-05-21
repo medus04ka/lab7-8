@@ -26,7 +26,7 @@ public class AuthManager {
     }
 
     public int registerUser(String login, String password) throws SQLException {
-        logger.info("Создание нового пользователя " + login);
+        logger.info("Создание нового бро " + login);
 
         var salt = generateSalt();
         var passwordHash = generatePasswordHash(password, salt);
@@ -38,12 +38,12 @@ public class AuthManager {
 
         int id = authRepository.addNewUser(user);
 
-        logger.info("Пользователь успешно создан, id#" + id);
+        logger.info("БрО успешно сОздАн, id#" + id);
         return id;
     }
 
     public int authenticateUser(String login, String password) throws SQLException {
-        logger.info("Аутентификация пользователя " + login);
+        logger.info("Аутентификация Бро " + login);
         User user = authRepository.findUserByUsername(login);
 
         if (user == null) {
@@ -55,15 +55,15 @@ public class AuthManager {
         var expectedHashedPassword = user.getPassword();
         var actualHashedPassword = generatePasswordHash(password, salt);
         if (expectedHashedPassword.equals(actualHashedPassword)) {
-            logger.info("Пользователь " + login + " аутентифицирован c id#" + id);
+            logger.info("Лох " + login + " аутентифицирован c id#" + id);
             return id;
         } else {
-        logger.warn(
-                "Неправильный пароль для пользователя " + login +
-                        ". Ожидалось '" + expectedHashedPassword + "', получено '" + actualHashedPassword + "'");
+            logger.warn(
+                    "Неправильный пароль для лОхА " + login +
+                            ". Ожидалось '" + expectedHashedPassword + "', получено '" + actualHashedPassword + "'");
         }
 
-        return 0;
+        return -1;
     }
 
     private String generateSalt() {

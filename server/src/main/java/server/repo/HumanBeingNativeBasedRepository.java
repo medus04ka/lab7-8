@@ -20,20 +20,12 @@ public class HumanBeingNativeBasedRepository {
     private LocalDateTime lastSaveTime;
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-    /**
-     * Instantiates a new Human being repository.
-     */
     public HumanBeingNativeBasedRepository(Collection<HumanBeing> collection) {
         this.lastInitTime = null;
         this.lastSaveTime = null;
         this.collection = (PriorityQueue<HumanBeing>) collection;
     }
 
-    /**
-     * Validate all boolean.
-     *
-     * @return the boolean
-     */
     public boolean validateAll() {
         for (var person : new ArrayList<>(get())) {
             if (!person.validate()) {
@@ -45,86 +37,40 @@ public class HumanBeingNativeBasedRepository {
         return true;
     }
 
-    /**
-     * Get queue.
-     *
-     * @return the queue
-     */
     public Queue<HumanBeing> get() {
         return collection;
     }
 
-    /**
-     * Gets last init time.
-     *
-     * @return the last init time
-     */
     public LocalDateTime getLastInitTime() {
         return lastInitTime;
     }
 
-    /**
-     * Gets last save time.
-     *
-     * @return the last save time
-     */
     public LocalDateTime getLastSaveTime() {
         return lastSaveTime;
     }
 
-    /**
-     * Type string.
-     *
-     * @return the string
-     */
     public String type() {
         return collection.getClass().getName();
     }
 
-    /**
-     * Size int.
-     *
-     * @return the int
-     */
     public int size() {
         return collection.size();
     }
 
-    /**
-     * First human being.
-     *
-     * @return the human being
-     */
     public HumanBeing first() {
         if (collection.isEmpty()) return null;
         return sorted().get(0);
     }
 
-    /**
-     * Last human being.
-     *
-     * @return the human being
-     */
     public HumanBeing last() {
         if (collection.isEmpty()) return null;
         return Iterables.getLast(sorted());
     }
 
-    /**
-     * Sorted list.
-     *
-     * @return the list
-     */
     public List<HumanBeing> sorted() {
         return new ArrayList<>(collection).stream().sorted(new Comparators()).collect(Collectors.toList());
     }
 
-    /**
-     * Gets by id.
-     *
-     * @param id the id
-     * @return the by id
-     */
     public HumanBeing getById(int id) {
         for (HumanBeing element : collection) {
             if (element.getId() == id) return element;
@@ -132,22 +78,10 @@ public class HumanBeingNativeBasedRepository {
         return null;
     }
 
-    /**
-     * Check exist boolean.
-     *
-     * @param id the id
-     * @return the boolean
-     */
     public boolean checkExist(int id) {
         return getById(id) != null;
     }
 
-    /**
-     * Gets by value.
-     *
-     * @param elementToFind the element to find
-     * @return the by value
-     */
     public HumanBeing getByValue(HumanBeing elementToFind) {
         for (HumanBeing element : collection) {
             if (element.equals(elementToFind)) return element;
@@ -155,35 +89,15 @@ public class HumanBeingNativeBasedRepository {
         return null;
     }
 
-    /**
-     * Add int.
-     *
-     * @param element the element
-     * @return the int
-     */
     public int add(HumanBeing element) {
-        var maxId = collection.stream().filter(Objects::nonNull)
-                .map(HumanBeing::getId)
-                .mapToInt(Integer::intValue).max().orElse(0);
-        var newId = maxId + 1;
-        element.setId(newId);
         collection.add(element);
-
-        return newId;
+        return element.getId();
     }
 
-    /**
-     * Remove.
-     *
-     * @param id the id
-     */
     public void remove(int id) {
         collection.removeIf(person -> person.getId() == id);
     }
 
-    /**
-     * Clear.
-     */
     public void clear() {
         collection.clear();
     }

@@ -21,11 +21,6 @@ public class CommandManager {
         commands.put(commandName, command);
     }
 
-    /**
-     * Gets commands.
-     *
-     * @return Словарь команд.
-     */
     public Map<String, Command> getCommands() {
         return commands;
     }

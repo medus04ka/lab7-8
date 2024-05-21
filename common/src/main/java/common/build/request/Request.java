@@ -5,29 +5,16 @@ import common.model.User;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * The type Request.
- */
 public abstract class Request implements Serializable {
     private final String name;
 
     private final User user;
 
-    /**
-     * Instantiates a new Request.
-     *
-     * @param name the name
-     */
     public Request(String name, User user) {
         this.user = user;
         this.name = name;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
     public String getName() {
         return name;
     }

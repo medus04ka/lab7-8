@@ -11,10 +11,6 @@ import server.service.HumanBeingService;
 public class Show extends Command {
     private final HumanBeingService service;
 
-    /**
-     * Instantiates a new Show.
-     *
-     */
     public Show(HumanBeingService service) {
         super("show", "вывести все элементы коллекции");
         this.service = service;
@@ -22,6 +18,7 @@ public class Show extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override

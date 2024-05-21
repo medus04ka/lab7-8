@@ -9,12 +9,5 @@ import common.exceptions.InvalidForm;
  * @param <T> создаваемый объект
  */
 public abstract class Form<T> {
-    /**
-     * Build t.
-     *
-     * @return the t
-     * @throws IncorrectInputInScript the incorrect input in script
-     * @throws InvalidForm            the invalid form
-     */
     public abstract T build() throws Exception;
 }

@@ -7,15 +7,10 @@ import server.service.HumanBeingService;
 
 /**
  * Команда 'remove_by_id'. Удаляет элемент из коллекции.
- *
  */
 public class RemoveById extends Command {
     private final HumanBeingService service;
 
-    /**
-     * Instantiates a new Remove by id.
-     *
-     */
     public RemoveById(HumanBeingService service) {
         super("remove_by_id <ID>", "удалить элемент из коллекции по ID");
         this.service = service;
@@ -23,6 +18,7 @@ public class RemoveById extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override

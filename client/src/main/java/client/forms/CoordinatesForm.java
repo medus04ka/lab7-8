@@ -13,11 +13,6 @@ import java.util.NoSuchElementException;
 public class CoordinatesForm extends Form<Coordinates> {
     private final client.util.console.Cons console;
 
-    /**
-     * Instantiates a new Coordinates form.
-     *
-     * @param console the console
-     */
     public CoordinatesForm(client.util.console.Cons console) {
         this.console = console;
     }
@@ -29,12 +24,6 @@ public class CoordinatesForm extends Form<Coordinates> {
         return coordinates;
     }
 
-    /**
-     * Ask x integer.
-     *
-     * @return the integer
-     * @throws IncorrectInputInScript the incorrect input in script
-     */
     public Integer askX() throws IncorrectInputInScript {
         var fileMode = Interrogator.fileMode();
         int x;

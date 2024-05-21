@@ -19,6 +19,7 @@ public class SumOfImpactSpeed extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override

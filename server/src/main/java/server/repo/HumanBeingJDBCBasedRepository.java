@@ -40,6 +40,7 @@ public class HumanBeingJDBCBasedRepository {
         if (rs.next()) {
             return rs.getInt(1);
         }
+
         return -1;
     }
 
@@ -72,7 +73,7 @@ public class HumanBeingJDBCBasedRepository {
 
     public HumanBeing getHumanBeing(int id) throws SQLException {
         PreparedStatement statement = connection.prepareStatement
-                (SELECT + "name, x, y, real_hero, has_tooth_pick, impact_speed, weapon, mood, owner_id"
+                (SELECT + "name, x, y, real_hero, has_tooth_pick, impact_speed, weapon, mood, owner_id, creation_date"
                         + FROM + TABLE_HUMAN_BEING + " as hb " + WHERE + "? = hb.id;");
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -83,7 +84,8 @@ public class HumanBeingJDBCBasedRepository {
     }
 
     public Collection<HumanBeing> readCollection() throws SQLException {
-        String query = SELECT + "id, name, x, y, real_hero, has_tooth_pick, impact_speed, weapon, mood, owner_id " + FROM + TABLE_HUMAN_BEING + ";";
+        String query = SELECT + "id, name, x, y, real_hero, has_tooth_pick, impact_speed, weapon, mood, owner_id, creation_date "
+                + FROM + TABLE_HUMAN_BEING + ";";
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
         List<HumanBeing> lst = new ArrayList<>();
@@ -127,7 +129,8 @@ public class HumanBeingJDBCBasedRepository {
                 .setImpactSpeed(rs.getLong(i++))
                 .setWeaponType(WeaponType.valueOf(rs.getString(i++).toString()))
                 .setMood(Mood.valueOf(rs.getString(i++).toString()))
-                .setOwnerId(rs.getInt(i++));
+                .setOwnerId(rs.getInt(i++))
+                .setCreationDate(rs.getDate(i++).toLocalDate());
 
         return humanBeing;
     }

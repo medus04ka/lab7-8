@@ -8,16 +8,10 @@ import java.util.NoSuchElementException;
 
 /**
  * Форма меры весов.
- *
  */
 public class WeaponTypeForm extends Form<WeaponType> {
     private final client.util.console.Cons console;
 
-    /**
-     * Instantiates a new Weapon type form.
-     *
-     * @param console the console
-     */
     public WeaponTypeForm(client.util.console.Cons console) {
         this.console = console;
     }

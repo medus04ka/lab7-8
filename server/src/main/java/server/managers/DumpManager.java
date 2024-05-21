@@ -17,6 +17,7 @@ import server.App;
 import server.util.LocalDateAdapter;
 
 /**
+ * остатки прошлого
  * Использует файл для сохранения и загрузки коллекции.
  */
 public class DumpManager {
@@ -29,12 +30,13 @@ public class DumpManager {
     private final String fileName;
 
     public DumpManager(String fileName) {
-        if (!(new File(fileName).exists()))  fileName = "./person/" + fileName + ".json";
+        if (!(new File(fileName).exists())) fileName = "./person/" + fileName + ".json";
         this.fileName = fileName;
     }
 
     /**
      * Записывает коллекцию в файл.
+     *
      * @param collection коллекция
      */
     public void writeCollection(Collection<HumanBeing> collection) {
@@ -48,18 +50,20 @@ public class DumpManager {
 
     /**
      * Считывает коллекцию из файла.
+     *
      * @return Считанная коллекция
      */
     public Collection<HumanBeing> readCollection() {
         if (fileName != null && !fileName.isEmpty()) {
             try (var fileReader = new FileReader(fileName)) {
-                var collectionType = new TypeToken<PriorityQueue<HumanBeing>>() {}.getType();
+                var collectionType = new TypeToken<PriorityQueue<HumanBeing>>() {
+                }.getType();
                 var reader = new BufferedReader(fileReader);
 
                 var jsonString = new StringBuilder();
 
                 String line;
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     line = line.trim();
                     if (!line.equals("")) {
                         jsonString.append(line);

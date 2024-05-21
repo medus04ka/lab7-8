@@ -12,20 +12,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Главный класс клиентского приложения.
- *
  */
 public class App {
     private static final int PORT = 1506;
-    /**
-     * The constant logger.
-     */
+
     public static final Logger logger = LoggerFactory.getLogger("ClientLogger");
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         var console = new StandardConsole();
         try {

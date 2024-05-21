@@ -7,26 +7,20 @@ import java.util.Objects;
 
 /**
  * Классс координат.
- *
  */
 public class Coordinates implements Validator, Serializable {
     private final Integer x; // Поле не может быть null
 
     private final Long y; // Поле не может быть null
 
-    /**
-     * Instantiates a new Coordinates.
-     *
-     * @param x the x
-     * @param y the y
-     */
-    public Coordinates (Integer x, Long y) {
+    public Coordinates(Integer x, Long y) {
         this.x = x;
         this.y = y;
     }
 
     /**
      * Валидирует правильность полей.
+     *
      * @return true, если все верно, иначе false
      */
     @Override

@@ -11,18 +11,11 @@ import java.io.IOException;
 
 /**
  * Команда 'info'. Выводит информацию о коллекции.
- *
  */
 public class Info extends Command {
     private final Cons console;
     private final UDP client;
 
-    /**
-     * Instantiates a new Info.
-     *
-     * @param console the console
-     * @param client  the client
-     */
     public Info(Cons console, UDP client) {
         super("info");
         this.console = console;
@@ -31,6 +24,7 @@ public class Info extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override
@@ -45,7 +39,7 @@ public class Info extends Command {
             var response = (InfoRes) client.sendAndReceiveCommand(new InfoReq(SessionHandler.getCurrentUser()));
             console.println(response.infoMessage);
             return true;
-        } catch(IOException e) {
+        } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         }
         return false;

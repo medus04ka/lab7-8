@@ -6,16 +6,10 @@ import server.service.HumanBeingService;
 
 /**
  * Команда 'add'. Добавляет новый элемент в коллекцию.
- *
  */
 public class Add extends Command {
     private final HumanBeingService humanBeingService;
 
-    /**
-     * Instantiates a new Add.
-     *
-     * @param humanBeingService the human being repository
-     */
     public Add(HumanBeingService humanBeingService) {
         super("add {element}", "добавить новый элемент в коллекцию");
         this.humanBeingService = humanBeingService;
@@ -23,6 +17,7 @@ public class Add extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override

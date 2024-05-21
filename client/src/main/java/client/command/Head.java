@@ -11,18 +11,11 @@ import java.io.IOException;
 
 /**
  * Команда 'head'. Выводит первый элемент коллекции.
- *
  */
 public class Head extends Command {
     private final Cons console;
     private final UDP client;
 
-    /**
-     * Instantiates a new Head.
-     *
-     * @param console the console
-     * @param client  the client
-     */
     public Head(Cons console, UDP client) {
         super("head");
         this.console = console;
@@ -31,6 +24,7 @@ public class Head extends Command {
 
     /**
      * Выполняет команду
+     *
      * @return Успешность выполнения команды.
      */
     @Override
@@ -53,7 +47,7 @@ public class Head extends Command {
         } catch (WrongAmountOfElements exception) {
             console.printError("Неправильное количество аргументов!");
             console.println("Использование: '" + getName() + "'");
-        } catch(IOException e) {
+        } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         } catch (API e) {
             console.printError(e.getMessage());

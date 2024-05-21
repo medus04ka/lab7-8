@@ -22,39 +22,43 @@ public class AuthenthicateForm extends Form<User> {
 
     /**
      * Запрашивает имя пользователя.
+     *
      * @return Имя пользователя.
      */
     protected String askName() throws Exception {
         String name;
         var fileMode = Interrogator.fileMode();
-        while (true) {
-            try {
-                console.println("Введите имя пользователя:");
-                console.ps2();
+        try {
+            console.println("Введите имя пользователя:");
+            console.ps2();
 
-                name = Interrogator.getUserScanner().nextLine().trim();
-                if (fileMode) console.println(name);
-
-                if (name.equals("") || name.length() >= 52) throw new Exception();
-                break;
-            } catch (NoSuchElementException exception) {
-                console.printError("Имя пользователя не распознано!");
-                if (fileMode) throw new Exception();
-            } catch (Exception exception) {
-                console.printError("Размер имени должен быть от 1 до 52 символов!");
-                if (fileMode) throw new Exception();
+            name = Interrogator.getUserScanner().nextLine().trim();
+            if (name == null) {
+                return null;
             }
+            if (fileMode) console.println(name);
+
+            if (name.equals("") || name.length() >= 40 || name == null) throw new Exception();
+            return name;
+        } catch (NoSuchElementException exception) {
+            console.printError("Имя пользователя не распознано!");
+            if (fileMode) throw new Exception();
+        } catch (Exception exception) {
+            console.printError("Размер имени должен быть от 1 до 40 символов!");
+            if (fileMode) throw new Exception();
+        }
 //            catch (IllegalStateException exception) {
 //                console.printError("Непредвиденная ошибка!");
 //                System.exit(0);
 //            }
-        }
 
-        return name;
+
+        return null;
     }
 
     /**
      * Запрашивает пароль пользователя.
+     *
      * @return Пароль пользователя.
      */
     protected String askPassword() throws Exception {

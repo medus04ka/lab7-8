@@ -2,7 +2,6 @@ package server.commands;
 
 /**
  * Что-то, что можно назвать и описать.
- *
  */
 public interface Describable {
     /**

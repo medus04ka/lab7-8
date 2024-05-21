@@ -16,24 +16,11 @@ import java.util.*;
 
 /**
  * Класс, запускающий введенные пользователем команды.
- *
  */
 public class Runner {
-    /**
-     * The enum Exit code.
-     */
     public enum ExitCode {
-        /**
-         * Ok exit code.
-         */
         OK,
-        /**
-         * Error exit code.
-         */
         ERROR,
-        /**
-         * Exit exit code.
-         */
         EXIT,
     }
 
@@ -44,12 +31,6 @@ public class Runner {
     private final Logger logger = App.logger;
     private final List<String> scriptStack = new ArrayList<>();
 
-    /**
-     * Instantiates a new Runner.
-     *
-     * @param client  the client
-     * @param console the console
-     */
     public Runner(UDP client, Cons console) {
         Interrogator.setUserScanner(new Scanner(System.in));
         this.client = client;
@@ -67,6 +48,7 @@ public class Runner {
             put(Commands.EXIT, new Exit(console));
             put(Commands.SUM_OF_IMPACT_SPEED, new SumOfImpactSpeed(console, client));
             put(Commands.REGISTER, new Register(console, client));
+            put(Commands.AUTH, new Auth(console, client));
         }};
     }
 
@@ -93,12 +75,6 @@ public class Runner {
         }
     }
 
-    /**
-     * Режим для запуска скрипта.
-     *
-     * @param argument Аргумент скрипта
-     * @return Код завершения.
-     */
     public ExitCode scriptMode(String argument) {
         String[] userCommand = {"", ""};
         ExitCode commandStatus;
@@ -154,6 +130,7 @@ public class Runner {
 
     /**
      * Запускает команду.
+     *
      * @param userCommand Команда для запуска
      * @return Код завершения.
      */
@@ -175,8 +152,11 @@ public class Runner {
                 if (!commands.get("execute_script").apply(userCommand)) return ExitCode.ERROR;
                 else return scriptMode(userCommand[1]);
             }
-            default -> { if (!command.apply(userCommand)) return ExitCode.ERROR; }
-        };
+            default -> {
+                if (!command.apply(userCommand)) return ExitCode.ERROR;
+            }
+        }
+        ;
 
         return ExitCode.OK;
     }
