@@ -7,7 +7,6 @@ import client.util.console.Cons;
 import common.build.request.UpdateReq;
 import common.build.response.NoSuchCommandRes;
 import common.build.response.NotLoggedInRes;
-import common.build.response.UpdateRes;
 import common.exceptions.*;
 
 import java.io.IOException;
