@@ -33,9 +33,9 @@ public class Update extends Command {
     @Override
     public boolean apply(String[] arguments) {
         try {
-            if (arguments[ 1 ].isEmpty()) throw new WrongAmountOfElements();
+            if (arguments[1].isEmpty()) throw new WrongAmountOfElements();
 
-            var id = Integer.parseInt(arguments[ 1 ]);
+            var id = Integer.parseInt(arguments[1]);
 
             console.println("* Введите данные обновленного продукта:");
             var updatedPerson = (new HumanBeingForm(console)).build();

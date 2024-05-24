@@ -31,8 +31,8 @@ public class RemoveById extends Command {
     @Override
     public boolean apply(String[] arguments) {
         try {
-            if (arguments[ 1 ].isEmpty()) throw new WrongAmountOfElements();
-            var id = Integer.parseInt(arguments[ 1 ]);
+            if (arguments[1].isEmpty()) throw new WrongAmountOfElements();
+            var id = Integer.parseInt(arguments[1]);
 
             var response = client.sendAndReceiveCommand(new RemoveByIdReq(id, SessionHandler.getCurrentUser()));
             if (response.getError() != null && !response.getError().isEmpty()) {

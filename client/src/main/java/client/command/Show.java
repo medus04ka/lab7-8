@@ -33,7 +33,7 @@ public class Show extends Command {
         try {
             if (!arguments[1].isEmpty()) throw new WrongAmountOfElements();
 
-            var response =  client.sendAndReceiveCommand(new ShowReq(SessionHandler.getCurrentUser()));
+            var response = client.sendAndReceiveCommand(new ShowReq(SessionHandler.getCurrentUser()));
             if (response.getError() != null && !response.getError().isEmpty()) {
                 throw new API(response.getError());
             }
@@ -66,6 +66,7 @@ public class Show extends Command {
         }
         return false;
     }
+
     @Override
     public boolean isNeedAuth() {
         return false;

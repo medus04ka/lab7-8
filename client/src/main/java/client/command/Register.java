@@ -61,6 +61,7 @@ public class Register extends Command {
         }
         return false;
     }
+
     @Override
     public boolean isNeedAuth() {
         return false;

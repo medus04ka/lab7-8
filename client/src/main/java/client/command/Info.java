@@ -56,6 +56,7 @@ public class Info extends Command {
         }
         return false;
     }
+
     @Override
     public boolean isNeedAuth() {
         return false;

@@ -33,7 +33,7 @@ public class Head extends Command {
         try {
             if (!arguments[1].isEmpty()) throw new WrongAmountOfElements();
 
-            var response =  client.sendAndReceiveCommand(new HeadReq(SessionHandler.getCurrentUser()));
+            var response = client.sendAndReceiveCommand(new HeadReq(SessionHandler.getCurrentUser()));
             if (response.getError() != null && !response.getError().isEmpty()) {
                 throw new API(response.getError());
             }
