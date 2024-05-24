@@ -1,5 +1,7 @@
 package client.command;
 
+import common.build.response.Response;
+
 import java.util.Objects;
 
 /**
@@ -27,6 +29,22 @@ public abstract class Command {
      * @return результат выполнения
      */
     public abstract boolean apply(String[] arguments);
+
+    public Class<? extends Response> getTargetClassCastOrErrorResponse(Class<? extends Command> initCommandClazz) {
+        try {
+            String packageName = "common.build.response";
+            String className = initCommandClazz.getSimpleName() + "Res";
+            String fullClassName = packageName + "." + className;
+            return (Class<? extends Response>) Class.forName(fullClassName);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+    }
+
+    public boolean isNeedAuth() {
+        return true;
+    }
 
     @Override
     public boolean equals(Object o) {

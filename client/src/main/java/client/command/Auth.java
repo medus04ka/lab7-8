@@ -1,14 +1,11 @@
 package client.command;
 
 import client.forms.AuthenthicateForm;
-import client.forms.RegisterForm;
 import client.handlers.SessionHandler;
 import client.netw.UDP;
 import client.util.console.Cons;
 import common.build.request.AuthReq;
-import common.build.request.RegisterReq;
 import common.build.response.AuthRes;
-import common.build.response.RegisterRes;
 import common.exceptions.API;
 import common.exceptions.InvalidForm;
 import common.exceptions.WrongAmountOfElements;
@@ -55,6 +52,11 @@ public class Auth extends Command {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return false;
+    }
+
+    @Override
+    public boolean isNeedAuth() {
         return false;
     }
 

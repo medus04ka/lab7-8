@@ -4,6 +4,7 @@ import client.forms.HumanBeingForm;
 import client.handlers.SessionHandler;
 import client.netw.UDP;
 import client.util.console.Cons;
+import common.build.response.NotLoggedInRes;
 import common.exceptions.*;
 import common.build.request.*;
 import common.build.response.*;
@@ -30,13 +31,22 @@ public class Add extends Command {
             console.println("* Создаем убийцу:");
 
             var newPerson = (new HumanBeingForm(console)).build();
-            var response = (AddRes) client.sendAndReceiveCommand(new AddReq(newPerson, SessionHandler.getCurrentUser()));
+            var response = client.sendAndReceiveCommand(new AddReq(newPerson, SessionHandler.getCurrentUser()));
             if (response.getError() != null && !response.getError().isEmpty()) {
                 throw new API(response.getError());
             }
 
-            console.println("Новый drug с id=" + response.newId + " успешно добавлен!");
-            return true;
+            if (response.getClass().equals(NotLoggedInRes.class)) {
+                console.printError("Вы не залогинены, войдите");
+            }
+            if (response.getClass().equals(NoSuchCommandRes.class)) {
+                console.printError("??? дурачок залогинься");
+            }
+            if (response.getClass().equals(getTargetClassCastOrErrorResponse(this.getClass()))) {
+                console.println("Новый drug с id=" + ((AddRes) response).newId + " успешно добавлен!");
+
+                return true;
+            }
 
         } catch (WrongAmountOfElements exception) {
             console.printError("Неправильное количество аргументов!");

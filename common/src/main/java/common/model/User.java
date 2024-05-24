@@ -66,9 +66,9 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name, password, salt);
     }
-
     public boolean validate() {
-        return getName().length() < 40;
+        int length = getName().length();
+        return length > 0 && length < 40;
     }
 
     public User copy(int id) {

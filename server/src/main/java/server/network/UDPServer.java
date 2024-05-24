@@ -26,7 +26,7 @@ abstract class UDPServer {
     private final InetSocketAddress addr;
     private final CommandHandler commandHandler;
     private Runnable afterHook;
-    private final ForkJoinPool service;
+    //    private final int service;
     private final ForkJoinPool responsePool;
     private final Logger logger = App.logger;
 
@@ -35,8 +35,8 @@ abstract class UDPServer {
     public UDPServer(InetSocketAddress addr, CommandHandler commandHandler) {
         this.addr = addr;
         this.commandHandler = commandHandler;
-        responsePool = new ForkJoinPool();
-        service = ForkJoinPool.commonPool();
+//        this.service = ForkJoinPool.getCommonPoolParallelism();
+        this.responsePool = ForkJoinPool.commonPool();
 //        new ForkJoinPool()
     }
 
@@ -61,32 +61,97 @@ abstract class UDPServer {
 
     public abstract void close();
 
+//    public void run() {
+//        logger.info("Сервер запущен по адресу " + addr);
+//        ForkJoinPool forkJoinPool = new ForkJoinPool();
+//        forkJoinPool.getFactory().newThread(forkJoinPool);
+//
+//        while (running) {
+//            Pair<Byte[], SocketAddress> dataPair = null;
+//            try {
+//                dataPair = receiveData();
+//            } catch (Exception e) {
+//                logger.error("Ошибка получения данных : " + e.getMessage(), e);
+//                disconnectFromClient();
+//            }
+//            RecursiveAction action = null;
+//            if (dataPair != null) {
+//                action = serverReceive(dataPair);
+//                action.fork();
+//                action.join();
+//            }
+//
+//            if (action != null) {
+//                forkJoinPool.execute(action);
+//            }
+////            System.out.println(forkJoinPool.getActiveThreadCount());
+//        }
+//
+//        close();
+//    }
+
+
     public void run() {
         logger.info("Сервер запущен по адресу " + addr);
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
-        forkJoinPool.getFactory().newThread(forkJoinPool);
 
         while (running) {
-            Pair<Byte[], SocketAddress> dataPair = null;
             try {
-                dataPair = receiveData();
+                Pair<Byte[], SocketAddress> dataPair = receiveData();
+
+                responsePool.submit(() -> {
+                    var dataFromClient = dataPair.getKey();
+                    var clientAddr = dataPair.getValue();
+
+                    try {
+                        logger.info("Соединено с " + clientAddr);
+                    } catch (Exception e) {
+                        logger.error("Ошибка соединения с клиентом : " + e.toString(), e);
+                    }
+
+                    try {
+                        Request request = SerializationUtils.deserialize(ArrayUtils.toPrimitive(dataFromClient));
+                        logger.info("Обработка " + request + " из " + clientAddr);
+
+                        responsePool.submit(() -> {
+                            Response response = null;
+                            try {
+                                response = commandHandler.handle(request);
+                            } catch (Exception e) {
+                                logger.error("Ошибка выполнения команды : " + e.toString(), e);
+                            }
+                            if (response == null) response = new NoSuchCommandRes(request.getName());
+
+                            var data = SerializationUtils.serialize(response);
+                            logger.info("Ответ: " + response);
+
+                            responsePool.submit(() -> {
+                                try {
+                                    sendData(data, clientAddr);
+                                    logger.info("Отправлен ответ клиенту " + clientAddr);
+                                } catch (Exception e) {
+                                    logger.error("Ошибка ввода-вывода : " + e.toString(), e);
+                                }
+                            });
+                        });
+
+                    } catch (SerializationException e) {
+                        logger.error("Невозможно десериализовать объект запроса.", e);
+                        disconnectFromClient();
+                    }
+
+                    disconnectFromClient();
+                    logger.info("Отключение от клиента " + clientAddr);
+                });
+
             } catch (Exception e) {
-                logger.error("Ошибка получения данных : " + e.getMessage(), e);
+                logger.error("Ошибка получения данных : " + e.toString(), e);
                 disconnectFromClient();
             }
-            RecursiveAction action = null;
-            if (dataPair != null) {
-                action = serverReceive(dataPair);
-                action.fork();
-                action.join();
-            }
-
-            if (action != null) {
-                forkJoinPool.execute(action);
-            }
-//            System.out.println(forkJoinPool.getActiveThreadCount());
         }
-
+        // ЧТОБ УЖ НАВЕРНЯКА, НЕ СПРАШИВАЙТЕ ПОЧЕМУ 3 РАЗА, захотела.
+        responsePool.shutdown();
+        responsePool.shutdown();
+        responsePool.shutdown();
         close();
     }
 

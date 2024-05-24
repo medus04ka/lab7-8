@@ -42,8 +42,9 @@ public class Register extends Command {
             }
 
             SessionHandler.setCurrentUser(response.user);
-            console.println("ЮзЕрОк " + response.user.getName() +
-                    " с id=" + response.user.getId() + " успешно создан!");
+            console.println("Поздравляю ЮзЕрОк " + response.user.getName() +
+                    " с id=" + response.user.getId() + " теперь может добавлять УбИйЦ ха-ха-ха " +
+                    "(ง ͠ ᵒ̌ Дᵒ̌)¤=[]:::::&gt;           ᕕ(⁽ ⁾བ ⁽ ْ ⁾ ╬)ᕗ");
             return true;
 
         } catch (WrongAmountOfElements exception) {
@@ -56,8 +57,12 @@ public class Register extends Command {
         } catch (API e) {
             console.printError(e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            console.printError(e.getMessage());
         }
+        return false;
+    }
+    @Override
+    public boolean isNeedAuth() {
         return false;
     }
 

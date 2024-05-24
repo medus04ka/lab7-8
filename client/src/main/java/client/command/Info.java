@@ -5,7 +5,8 @@ import client.netw.UDP;
 import client.util.console.Cons;
 import common.build.request.InfoReq;
 import common.build.response.InfoRes;
-import common.util.Commands;
+import common.build.response.NoSuchCommandRes;
+import common.build.response.NotLoggedInRes;
 
 import java.io.IOException;
 
@@ -36,12 +37,27 @@ public class Info extends Command {
         }
 
         try {
-            var response = (InfoRes) client.sendAndReceiveCommand(new InfoReq(SessionHandler.getCurrentUser()));
-            console.println(response.infoMessage);
+            var response = client.sendAndReceiveCommand(new InfoReq(SessionHandler.getCurrentUser()));
+
+            if (response.getClass().equals(NotLoggedInRes.class)) {
+                console.printError("Вы не залогинены, войдите");
+            }
+            if (response.getClass().equals(NoSuchCommandRes.class)) {
+                console.printError("??? дурачок залогинься");
+            }
+
+            if (response.getClass().equals(getTargetClassCastOrErrorResponse(this.getClass()))) {
+                assert response instanceof InfoRes;
+                console.println(((InfoRes) response).infoMessage);
+            }
             return true;
         } catch (IOException e) {
             console.printError("Ошибка взаимодействия с сервером");
         }
+        return false;
+    }
+    @Override
+    public boolean isNeedAuth() {
         return false;
     }
 }

@@ -2,6 +2,7 @@ package client.cl;
 
 import client.App;
 import client.command.*;
+import client.handlers.SessionHandler;
 import client.netw.UDP;
 import client.util.console.Cons;
 import client.util.Interrogator;
@@ -140,6 +141,10 @@ public class Runner {
 
         if (command == null) {
             console.printError("Команда '" + userCommand[0] + "' не найдена. Наберите 'help' для справки");
+            return ExitCode.ERROR;
+        }
+        if (command.isNeedAuth() && SessionHandler.getCurrentUser() == null) {
+            console.printError("зАлОгИнЬсЯ пжпжпжжппжпж )((())(()() ");
             return ExitCode.ERROR;
         }
 

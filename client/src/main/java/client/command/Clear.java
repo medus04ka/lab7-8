@@ -3,6 +3,7 @@ package client.command;
 import client.handlers.SessionHandler;
 import client.netw.UDP;
 import client.util.console.Cons;
+import common.build.response.NotLoggedInRes;
 import common.exceptions.*;
 import common.build.request.*;
 import common.build.response.*;
@@ -32,9 +33,15 @@ public class Clear extends Command {
         try {
             if (!arguments[1].isEmpty()) throw new WrongAmountOfElements();
 
-            var response = (ClearRes) client.sendAndReceiveCommand(new ClearReq(SessionHandler.getCurrentUser()));
+            var response = client.sendAndReceiveCommand(new ClearReq(SessionHandler.getCurrentUser()));
             if (response.getError() != null && !response.getError().isEmpty()) {
                 throw new API(response.getError());
+            }
+            if (response.getClass().equals(NotLoggedInRes.class)) {
+                console.printError("Вы не залогинены, войдите");
+            }
+            if (response.getClass().equals(NoSuchCommandRes.class)) {
+                console.printError("??? дурачок залогинься");
             }
 
             console.println("Коллекция очищена!");

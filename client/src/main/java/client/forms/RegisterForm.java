@@ -14,7 +14,11 @@ public class RegisterForm extends AuthenthicateForm {
 
     @Override
     public User build() throws Exception {
-        var user = new User(askName(), askPassword());
+        String name = askName();
+        if (name.isBlank()) throw new Exception();
+        String password = askPassword();
+        if (password.isBlank()) throw new Exception();
+        var user = new User(name, password);
         if (!user.validate()) throw new Exception();
         return user;
     }
@@ -26,11 +30,11 @@ public class RegisterForm extends AuthenthicateForm {
      */
     @Override
     protected String askPassword() throws Exception {
-        String password;
+        String password = "";
         var fileMode = Interrogator.fileMode();
         while (true) {
             try {
-                console.println("Введите пароль юзерка:");
+                console.println("Введите пароль пользователя:");
                 console.ps2();
 
                 password = readPassword();
@@ -38,7 +42,7 @@ public class RegisterForm extends AuthenthicateForm {
 
                 if (password.equals("")) throw new Exception();
 
-                console.println("Повторите пароль ЮзЕркА:");
+                console.println("Повторите пароль пользователя:");
                 console.ps2();
 
                 var passwordRepeat = readPassword();
@@ -49,18 +53,8 @@ public class RegisterForm extends AuthenthicateForm {
             } catch (Exception exception) {
                 console.printError("Пароль пользователя не распознан!");
                 if (fileMode) throw new Exception();
-                System.exit(0);
+                break;
             }
-//            catch (Exception exception) {
-//                console.printError("Введенные пароли не совпадают!");
-//                if (fileMode) throw new Exception();
-//            } catch (Exception exception) {
-//                console.printError("Пароль не должен быть пустым!");
-//                if (fileMode) throw new Exception();
-//            } catch (IllegalStateException exception) {
-//                console.printError("Непредвиденная ошибка!");
-//
-//            }
         }
 
         return password;

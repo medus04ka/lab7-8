@@ -26,35 +26,36 @@ public class AuthenthicateForm extends Form<User> {
      * @return Имя пользователя.
      */
     protected String askName() throws Exception {
-        String name;
+        String name = "";
         var fileMode = Interrogator.fileMode();
-        try {
-            console.println("Введите имя пользователя:");
-            console.ps2();
+        while (true) {
+            try {
+                console.println("Введите имя пользователя:");
+                console.ps2();
 
-            name = Interrogator.getUserScanner().nextLine().trim();
-            if (name == null) {
-                return null;
+                name = Interrogator.getUserScanner().nextLine().trim();
+                if (fileMode) console.println(name);
+
+                if (name.equals("") || name.length() >= 40) throw new Exception();
+                break;
+            } catch (NoSuchElementException exception) {
+                console.printError("Имя пользователя не распознано!");
+                if (fileMode) throw new Exception();
+                break;
+            } catch (Exception exception) {
+                console.printError("Размер имени должен быть от 1 до 40 символов!");
+                if (fileMode) throw new Exception();
+                break;
             }
-            if (fileMode) console.println(name);
-
-            if (name.equals("") || name.length() >= 40 || name == null) throw new Exception();
-            return name;
-        } catch (NoSuchElementException exception) {
-            console.printError("Имя пользователя не распознано!");
-            if (fileMode) throw new Exception();
-        } catch (Exception exception) {
-            console.printError("Размер имени должен быть от 1 до 40 символов!");
-            if (fileMode) throw new Exception();
-        }
 //            catch (IllegalStateException exception) {
 //                console.printError("Непредвиденная ошибка!");
 //                System.exit(0);
 //            }
+        }
 
-
-        return null;
+        return name;
     }
+
 
     /**
      * Запрашивает пароль пользователя.
@@ -62,7 +63,7 @@ public class AuthenthicateForm extends Form<User> {
      * @return Пароль пользователя.
      */
     protected String askPassword() throws Exception {
-        String password;
+        String password = "";
         var fileMode = Interrogator.fileMode();
         while (true) {
             try {
@@ -77,9 +78,12 @@ public class AuthenthicateForm extends Form<User> {
             } catch (NoSuchElementException exception) {
                 console.printError("Пароль пользователя не распознан!");
                 if (fileMode) throw new Exception();
+                break;
             } catch (Exception exception) {
                 console.printError("Пароль не должен быть пустым!");
                 if (fileMode) throw new Exception();
+                break;
+
             }
 //            catch (IllegalStateException exception) {
 //                console.printError("Непредвиденная ошибка!");
